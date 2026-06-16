@@ -7,7 +7,7 @@ confluence-labels:
   - rbac
 ---
 
-# Route Guards Reference
+# Route Guards References
 
 Documents every route's current auth guards and the suggested RBAC module guard to add.
 
