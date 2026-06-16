@@ -115,14 +115,6 @@ def set_labels(page_id, labels):
     requests.post(url, auth=AUTH, headers=HEADERS, json=payload).raise_for_status()
 
 
-def ensure_ancestor_pages(parts, root_id):
-    """Walk directory parts, creating stub pages as needed, return leaf parent id."""
-    parent_id = root_id
-    for part in parts:
-        parent_id = get_or_create_page(part, parent_id, "<p><em>Auto-generated section page.</em></p>")
-    return parent_id
-
-
 def should_ignore(rel_path):
     parts = Path(rel_path).parts
     for ignored in IGNORE_DIRS:
@@ -145,14 +137,10 @@ def process_file(md_path, docs_root):
     title = post.get("title") or rel.stem.replace("-", " ").replace("_", " ").title()
     labels = post.get("confluence-labels", [])
 
-    # Determine parent: intermediate dirs become stub pages
-    dir_parts = list(rel.parts[:-1])  # dirs between docs/ and the file
-    parent_id = ensure_ancestor_pages(dir_parts, ROOT_PAGE_ID)
-
-    # Convert markdown body (strip frontmatter)
+    # All pages go flat under the root page — no sub-pages for directories
     body_html = md_to_storage(post.content)
     print(f"SYNC: {rel} → '{title}'")
-    get_or_create_page(title, parent_id, body_html, labels=labels)
+    get_or_create_page(title, ROOT_PAGE_ID, body_html, labels=labels)
 
 
 def main():
