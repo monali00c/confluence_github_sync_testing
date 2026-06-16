@@ -1,3 +1,13 @@
+
+---
+title: API-design-v1
+sync_to_confluence: true
+confluence-labels:
+  - technical
+  - spec
+  - ipms
+---
+
 # API Design Reference — Bandhan Bazar
 **API-BB-001 v1.1 · NestJS + TypeORM · Base URL: `https://api.bandhanbaazar.com/api/v1`**
 
