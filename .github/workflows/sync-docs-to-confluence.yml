@@ -38,8 +38,12 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "CHANGED_FILES=all" >> $GITHUB_ENV
           else
-            FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'docs/**/*.md' | tr '\n' ' ')
-            echo "CHANGED_FILES=$FILES" >> $GITHUB_ENV
+            FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^docs/.*\.md$' | tr '\n' ' ')
+            if [ -z "$FILES" ]; then
+              echo "CHANGED_FILES=all" >> $GITHUB_ENV
+            else
+              echo "CHANGED_FILES=$FILES" >> $GITHUB_ENV
+            fi
           fi
 
       - name: Sync docs to Confluence
