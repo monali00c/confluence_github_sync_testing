@@ -13,7 +13,7 @@ Documents every route's current auth guards and the suggested RBAC module guard 
 
 **Guard types in use:**
 - `AdminJwtAuthGuard` — checks admin JWT (`ADMIN_JWT_SECRET`)
-- `SuperAdminGuard` — requires `role === 'super_admin'`
+- `SuperAdminGuard` — needs `role === 'super_admin'`
 - `AdminModuleGuard` — requires the admin's `permissions` array to include the module name (or `'*'`)
 - `JwtAuthGuard` — verifies partner/customer JWT (`JWT_SECRET`)
 - `PartnerModuleGuard` — requires `partnerPermissions` array to include the module name
