@@ -13,6 +13,7 @@ ROOT_PAGE_ID = os.environ["CONFLUENCE_ROOT_PAGE_ID"]
 EMAIL = os.environ["CONFLUENCE_EMAIL"]
 API_TOKEN = os.environ["CONFLUENCE_API_TOKEN"]
 DRY_RUN = os.environ.get("DRY_RUN", "false").lower() == "true"
+CHANGED_FILES = os.environ.get("CHANGED_FILES", "all").strip()
 
 AUTH = (EMAIL, API_TOKEN)
 HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
@@ -146,6 +147,13 @@ def main():
     if not md_files:
         print("No markdown files found in docs/.")
         sys.exit(0)
+
+    if CHANGED_FILES != "all":
+        changed = {p.replace("\\", "/") for p in CHANGED_FILES.split()}
+        md_files = [f for f in md_files if str(f).replace("\\", "/") in changed]
+        if not md_files:
+            print("No changed docs to sync.")
+            sys.exit(0)
 
     print(f"{'[DRY RUN] ' if DRY_RUN else ''}Processing {len(md_files)} file(s)...\n")
     for f in md_files:

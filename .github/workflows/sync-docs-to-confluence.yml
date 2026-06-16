@@ -32,6 +32,16 @@ jobs:
         run: |
           pip install requests python-frontmatter markdown pygments
 
+      - name: Get changed markdown files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "CHANGED_FILES=all" >> $GITHUB_ENV
+          else
+            FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'docs/**/*.md' | tr '\n' ' ')
+            echo "CHANGED_FILES=$FILES" >> $GITHUB_ENV
+          fi
+
       - name: Sync docs to Confluence
         env:
           CONFLUENCE_URL: ${{ vars.CONFLUENCE_URL }}
