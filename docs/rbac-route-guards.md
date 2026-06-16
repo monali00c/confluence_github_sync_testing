@@ -12,7 +12,7 @@ confluence-labels:
 Documents every route's current auth guards and the suggested RBAC module guard to add.
 
 **Guard types in use:**
-- `AdminJwtAuthGuard` — verifies admin JWT (`ADMIN_JWT_SECRET`)
+- `AdminJwtAuthGuard` — checks admin JWT (`ADMIN_JWT_SECRET`)
 - `SuperAdminGuard` — requires `role === 'super_admin'`
 - `AdminModuleGuard` — requires the admin's `permissions` array to include the module name (or `'*'`)
 - `JwtAuthGuard` — verifies partner/customer JWT (`JWT_SECRET`)
