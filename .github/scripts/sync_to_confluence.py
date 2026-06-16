@@ -4,6 +4,7 @@ import glob
 import json
 import requests
 import frontmatter
+import markdown
 from pathlib import Path
 
 CONFLUENCE_URL = os.environ["CONFLUENCE_URL"].rstrip("/")
@@ -36,19 +37,11 @@ if ignore_file.exists():
 
 
 def md_to_storage(markdown_body):
-    """Convert markdown to Confluence storage format via the API."""
-    url = f"{CONFLUENCE_URL}/rest/api/contentbody/convert/storage"
-    resp = requests.post(
-        url,
-        auth=AUTH,
-        headers=HEADERS,
-        json={"value": markdown_body, "representation": "wiki"},
+    """Convert markdown to Confluence storage format (HTML)."""
+    return markdown.markdown(
+        markdown_body,
+        extensions=["tables", "fenced_code", "codehilite", "toc", "nl2br"],
     )
-    if resp.status_code == 200:
-        return resp.json()["value"]
-    # Fallback: wrap in preformatted block
-    escaped = markdown_body.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-    return f"<p><pre>{escaped}</pre></p>"
 
 
 def get_or_create_page(title, parent_id, body, labels=None):

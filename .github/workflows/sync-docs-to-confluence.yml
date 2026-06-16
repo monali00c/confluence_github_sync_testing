@@ -30,7 +30,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests python-frontmatter
+          pip install requests python-frontmatter markdown pygments
 
       - name: Sync docs to Confluence
         env:
