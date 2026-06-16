@@ -3,7 +3,7 @@ name: Sync Docs to Confluence
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'docs/**/*.md'
   workflow_dispatch:
