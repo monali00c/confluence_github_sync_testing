@@ -1,0 +1,4 @@
+# Directories listed here will NOT be synced to Confluence.
+# One path per line, relative to docs/
+
+plans
