@@ -7,7 +7,7 @@ confluence-labels:
   - schema
 ---
 
-# DB Schema Reference — Bandhan Bazar
+# DB Schema References — Bandhan Bazar
 **DB-SCHEMA-BB-001 v1.1 · NestJS + TypeORM · PostgreSQL 15 + MongoDB 7**
 
 > **Claude Code:** Read this file when working on any entity, migration, repository, service, or query. All TypeORM entity names, column names, constraints, and indexes are defined here. Do not deviate.
